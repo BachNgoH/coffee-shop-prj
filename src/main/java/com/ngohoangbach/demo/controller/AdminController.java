@@ -19,6 +19,14 @@ import com.ngohoangbach.demo.entity.Status;
 import com.ngohoangbach.demo.helper.ProductAmount;
 import com.ngohoangbach.demo.service.ProductService;
 
+/**
+ * 
+ * Admin controller for managing the coffee shop
+ * 
+ * @author Bach
+ * 
+ */
+
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -26,12 +34,20 @@ public class AdminController {
 	@Autowired
 	ProductService productService;
 	
+	
+	/**
+	 * return the list of orders that the shop receive 
+	 * 
+	 * @param theModel to display the list
+	 * @return the main admin page
+	 */
 	@GetMapping("/orderList")
 	public String showOrderList(Model theModel) {
 		List<Order> orderList = productService.findAllOrders();
 		List<Customer> customerList = new ArrayList<>();
 		List<Status> allStatus = productService.allStatus();
 		
+		// get customers list
 		for(Order order: orderList) {
 			if(order.getTheCustomer() != null)
 				customerList.add(order.getTheCustomer());
@@ -43,12 +59,18 @@ public class AdminController {
 		return "admin/admin-page";
 	}
 	
+	/**
+	 * view the details of a order, including : id, customer, list of products, order status
+	 * 
+	 * @param theModel
+	 * @param orderId
+	 * @return
+	 */
 	@GetMapping("/viewDetails")
 	public String viewOrderDetails(Model theModel, @RequestParam("orderId") int orderId) {
 		Order theOrder = productService.findOrderById(orderId);
 		
 		Customer theCustomer = theOrder.getTheCustomer();
-		List<Product> theProducts = theOrder.getProducts();
 		Status status = theOrder.getStatus();
 		
 		List<ProductAmount> productAmount = productService.findTheAmountOfEachProdct(theOrder);
@@ -63,6 +85,13 @@ public class AdminController {
 		return "admin/order-details";
 	}
 	
+	
+	/**
+	 * deliver the order: change the status of the order from delivering -> delivered
+	 * 
+	 * @param orderId
+	 * @return
+	 */
 	@GetMapping("/deliverOrder")
 	public String deliverOrder(@RequestParam("orderId") int orderId) {
 		Order theOrder = productService.findOrderById(orderId);
@@ -74,12 +103,20 @@ public class AdminController {
 		return "redirect:/admin/orderList";
 	}
 	
+	/*
+	 * clear all the orders 
+	 */
 	@GetMapping("/clearAllOrders")
 	public String deleteAllOrder() {
 		productService.clearAllOrders();
 		return "redirect:/products/list";
 	}
 	
+	
+	/*
+	 * Show the statistics of the shop
+	 * including : total number of orders in a day, total profit in a day
+	 */
 	@GetMapping("/showStatistics")
 	public String showStatistic(Model theModel) {
 		

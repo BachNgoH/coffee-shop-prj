@@ -15,6 +15,11 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * Product entity
+ * @author Bach
+ *
+ */
 @Entity
 @Table(name="product")
 public class Product {
@@ -40,6 +45,13 @@ public class Product {
 	public Product() {}
 	
 	public Product(String title, float price, String imageUrl) {
+		this.title = title;
+		this.price = price;
+		this.imageUrl = imageUrl;
+	}
+	
+	public Product(int id, String title, float price, String imageUrl) {
+		this.id = id;
 		this.title = title;
 		this.price = price;
 		this.imageUrl = imageUrl;

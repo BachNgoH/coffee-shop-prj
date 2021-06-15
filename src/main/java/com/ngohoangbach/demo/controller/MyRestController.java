@@ -17,6 +17,12 @@ import com.ngohoangbach.demo.entity.Order;
 import com.ngohoangbach.demo.entity.Product;
 import com.ngohoangbach.demo.service.ProductService;
 
+
+/**
+ * Rest Controller to handle request from the main page
+ * @author Bach
+ *
+ */
 @RestController
 @RequestMapping("/api")
 public class MyRestController {
@@ -24,16 +30,30 @@ public class MyRestController {
 	@Autowired
 	ProductService productService;
 	
+	/**
+	 * @return all the products currently in store
+	 */
 	@GetMapping("/products")
 	public List<Product> showAllProducts(){
 		return productService.findAllProducts();
 	}
 	
+	/**
+	 * 
+	 * @param productId
+	 * @return the product with productId
+	 */
 	@GetMapping("/products/{productId}")
 	public Product showProduct(@PathVariable int productId) {
 		return productService.findProductById(productId);
 	}
 	
+	
+	/**
+	 * Post new product to Database
+	 * @param theProduct
+	 * @return the product 
+	 */
 	@PostMapping("/products")
 	public Product saveProduct(@RequestBody Product theProduct) {
 		theProduct.setId(0);
@@ -41,6 +61,11 @@ public class MyRestController {
 		return theProduct;
 	}
 	
+	/**
+	 * update product 
+	 * @param theProduct 
+	 * @return
+	 */
 	@PutMapping("/products")
 	public Product update(@RequestBody Product theProduct) {
 		
@@ -67,6 +92,11 @@ public class MyRestController {
 		 return productService.findOrderById(orderId);
 	}
 
+	/**
+	 * create a new empty order
+	 * used when user press purchase button, create new order and insert products
+	 * @return the empty order
+	 */
 	@PostMapping("/orders")
 	public Order createOrder() {
 		Order theOrder = new Order();
@@ -74,6 +104,11 @@ public class MyRestController {
 		return theOrder;
 	}
 	
+	/**
+	 * put a product to a order
+	 * @param orderId 
+	 * @param productId
+	 */
 	@PutMapping("/orders/{orderId}/products/{productId}")
 	public void orderNewProduct(@PathVariable int orderId, @PathVariable int productId) {
 		Order theOrder = productService.findOrderById(orderId);
@@ -81,4 +116,7 @@ public class MyRestController {
 		theOrder.addProduct(theProduct);
 		productService.saveProduct(theProduct);
 	}
+	
+
+	
 }

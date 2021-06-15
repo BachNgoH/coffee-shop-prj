@@ -7,6 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Statistic entity of the shop
+ * show the shop total orders and profit in a day
+ * @author Bach
+ *
+ */
 @Entity
 @Table(name="statistic")
 public class Statistic {

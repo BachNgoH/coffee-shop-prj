@@ -22,22 +22,22 @@ import com.ngohoangbach.demo.entity.Statistic;
 import com.ngohoangbach.demo.entity.Status;
 import com.ngohoangbach.demo.helper.ProductAmount;
 
+import lombok.AllArgsConstructor;
+
+/**
+ * implementation for product service
+ * @author Bach
+ *
+ */
+
 @Service
+@AllArgsConstructor
 public class ProductServiceImpl implements ProductService{
 
-	@Autowired
 	ProductRepo productRepo;
-	
-	@Autowired
 	OrderRepo orderRepo;
-	
-	@Autowired
 	StatusRepo statusRepo;
-	
-	@Autowired
 	CustomerRepo customerRepo;
-	
-	@Autowired
 	StatisticRepo statisticRepo;
 	
 	@Override
@@ -54,7 +54,7 @@ public class ProductServiceImpl implements ProductService{
 			theProduct = tempProduct.get();
 		}
 		
-		return theProduct;
+		return theProduct; 
 	}
 
 	@Override
@@ -67,6 +67,9 @@ public class ProductServiceImpl implements ProductService{
 		productRepo.deleteById(theId);
 	}
 	
+	/**
+	 * Get all the product of a order
+	 */
 	@Override
 	public List<Product> findAllProductsOfAOrder(int orderId) {
 		Order tempOrder = findOrderById(orderId);
@@ -93,6 +96,10 @@ public class ProductServiceImpl implements ProductService{
 		
 	}
 
+	/**
+	 * Add a product to the order
+	 * 
+	 */
 	@Override
 	public Order addProductToOrder(int orderId, int productId) {
 		Optional<Order> tempOrder = orderRepo.findById(orderId);
@@ -126,6 +133,9 @@ public class ProductServiceImpl implements ProductService{
 		return theOrder;
 	}
 
+	/**
+	 * clear all product of a order
+	 */
 	@Override
 	public Order clearProduct(int orderId) {
 		
@@ -146,7 +156,9 @@ public class ProductServiceImpl implements ProductService{
 		orderRepo.deleteAll();
 	}
 
-
+	/**
+	 * get the total cost of a order
+	 */
 	@Override
 	public int totalCost(Order theOrder) {
 		List<Product> theProducts = theOrder.getProducts();
@@ -157,7 +169,9 @@ public class ProductServiceImpl implements ProductService{
 		return total;
 	}
 	
-
+	/**
+	 * find the amount of product in a order
+	 */
 	@Override
 	public List<ProductAmount> findTheAmountOfEachProdct(Order theOrder) {
 		List<Product> theProducts = theOrder.getProducts();
@@ -183,6 +197,10 @@ public class ProductServiceImpl implements ProductService{
 
 	
 //	------------------------------------- STATUS -----------------------------------------------//
+	
+	/**
+	 * Three Status: Verifying, Delivering, Delivered
+	 */
 	@Override
 	public Status verifying() {
 		int verifyingId = 1;
@@ -251,6 +269,10 @@ public class ProductServiceImpl implements ProductService{
 		return statisticRepo.findAll();
 	}
 
+	
+	/**
+	 * update the statistic of a day
+	 */
 	@Override
 	public Statistic updateStatistic(Order theOrder) {
 		
@@ -268,6 +290,14 @@ public class ProductServiceImpl implements ProductService{
 		}
 		statisticRepo.save(statistic);
 		return statistic;
+	}
+
+	@Override
+	public boolean demoTest(String comment) {
+		if(comment.contains("shit")) {
+			throw new RuntimeException("Comment contains unacceptable language");
+		}
+		return false;
 	}
 
 	

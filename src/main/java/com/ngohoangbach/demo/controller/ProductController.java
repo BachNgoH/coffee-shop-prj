@@ -22,6 +22,12 @@ import com.ngohoangbach.demo.entity.Product;
 import com.ngohoangbach.demo.helper.ProductAmount;
 import com.ngohoangbach.demo.service.ProductService;
 
+/**
+ * Controller that handle request from the user
+ * @author Bach
+ *
+ */
+
 @Controller
 @RequestMapping("/products")
 public class ProductController {

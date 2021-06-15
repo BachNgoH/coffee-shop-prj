@@ -1,7 +1,11 @@
 package com.ngohoangbach.demo.helper;
 
 import com.ngohoangbach.demo.entity.Product;
-
+/**
+ * Helper class to handle the total amount of a product in a order
+ * @author Bach
+ *
+ */
 public class ProductAmount {
 	
 	private Product product;

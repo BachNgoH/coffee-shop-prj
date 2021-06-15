@@ -11,6 +11,11 @@ import javax.persistence.Table;
 
 import com.ngohoangbach.demo.entity.Order;
 
+/**
+ * Customer Entity 
+ * @author Bach
+ *
+ */
 @Entity
 @Table(name="customer")
 public class Customer {

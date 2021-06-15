@@ -20,6 +20,11 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * Order entity
+ * @author Bach
+ *
+ */
 @Entity
 @Table(name="orders")
 public class Order {
@@ -59,6 +64,18 @@ public class Order {
 		this.products = products;
 	}
 	
+	public Order(int id, List<Product> products, Customer theCustomer, Status status, LocalDate addDate,
+			LocalDate deliverDate) {
+		this.id = id;
+		this.products = products;
+		this.theCustomer = theCustomer;
+		this.status = status;
+		this.addDate = addDate;
+		this.deliverDate = deliverDate;
+	}
+
+
+
 	public Order() {}
 
 	public int getId() {

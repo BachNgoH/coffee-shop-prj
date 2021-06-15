@@ -12,6 +12,11 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+/**
+ * Status of a Order: Verifying, Delivering, Delivered
+ * @author Bach
+ *
+ */
 @Entity
 @Table(name="status")
 public class Status {

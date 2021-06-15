@@ -8,6 +8,13 @@ import com.ngohoangbach.demo.entity.Product;
 import com.ngohoangbach.demo.entity.Statistic;
 import com.ngohoangbach.demo.entity.Status;
 import com.ngohoangbach.demo.helper.ProductAmount;
+/**
+ * Central interface for all services
+ * it was named ProductService, however it handles request for all entity
+ * not just product
+ * @author Bach
+ *
+ */
 
 public interface ProductService {
 	
@@ -44,5 +51,7 @@ public interface ProductService {
 	// for statistic
 	public List<Statistic> findAllStatistic();
 	public Statistic updateStatistic(Order theOrder);
+	
+	public boolean demoTest(String comment);
 	
 }
