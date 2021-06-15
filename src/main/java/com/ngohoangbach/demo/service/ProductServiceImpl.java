@@ -22,7 +22,6 @@ import com.ngohoangbach.demo.entity.Statistic;
 import com.ngohoangbach.demo.entity.Status;
 import com.ngohoangbach.demo.helper.ProductAmount;
 
-import lombok.AllArgsConstructor;
 
 /**
  * implementation for product service
@@ -31,7 +30,6 @@ import lombok.AllArgsConstructor;
  */
 
 @Service
-@AllArgsConstructor
 public class ProductServiceImpl implements ProductService{
 
 	ProductRepo productRepo;
@@ -40,6 +38,16 @@ public class ProductServiceImpl implements ProductService{
 	CustomerRepo customerRepo;
 	StatisticRepo statisticRepo;
 	
+	@Autowired
+	public ProductServiceImpl(ProductRepo productRepo, OrderRepo orderRepo, StatusRepo statusRepo,
+			CustomerRepo customerRepo, StatisticRepo statisticRepo) {
+		this.productRepo = productRepo;
+		this.orderRepo = orderRepo;
+		this.statusRepo = statusRepo;
+		this.customerRepo = customerRepo;
+		this.statisticRepo = statisticRepo;
+	}
+
 	@Override
 	public List<Product> findAllProducts() {
 		return productRepo.findAll();
